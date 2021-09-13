@@ -1,49 +1,74 @@
 const express = require("express")
 const { chromium } = require("playwright-chromium")
-const { firefox } = require("playwright-firefox")
+//const { firefox } = require("playwright-firefox")
 
 const app = express()
 app.use(express.static("./public"))
 const port = process.env.PORT || 3000;
 
 app.get("/browser/:name", async (req, res) => {
-  const browserName = req.params["name"] || "chromium"
-  if (!["chromium", "firefox"].includes(browserName)) {
-    return res.status(500).send(`invalid browser name (${browserName})!`)
-  }
-  const url = req.query.url || "https://microsoft.com"
-  const waitUntil = req.query.waitUntil || "load"
-  const width = req.query.width ? parseInt(req.query.width, 10) : 1920
-  const height = req.query.height ? parseInt(req.query.height, 10) : 1080
-  console.log(`Incoming request for browser '${browserName}' and URL '${url}'`)
-  try {
+  //const browserName = req.params["name"] || "chromium"
+  //if (!["chromium", "firefox"].includes(browserName)) {
+  //  return res.status(500).send(`invalid browser name (${browserName})!`)
+  //}
+  //const url = req.query.url || "https://microsoft.com"
+  //const waitUntil = req.query.waitUntil || "load"
+  //const width = req.query.width ? parseInt(req.query.width, 10) : 1920
+  //const height = req.query.height ? parseInt(req.query.height, 10) : 1080
+  //console.log(`Incoming request for browser '${browserName}' and URL '${url}'`)
+	res.send('wake up OK!'); //响应程序
+
     /** @type {import('playwright-chromium').Browser} */
-    const browser = await { chromium, firefox }[browserName].launch({
+    //const browser = await { chromium, firefox }[browserName].launch({
+	const browser = await chromium.launch({
       chromiumSandbox: false
-    })
-    const page = await browser.newPage({
-      viewport: {
-        width,
-        height
-      }
-    })
-    await page.goto(url, {
-      timeout: 10 * 1000,
-      waitUntil
-    })
-    if (req.query.timeout) {
-      await page.waitForTimeout(parseInt(req.query.timeout, 10))
-    }
-    const data = await page.screenshot({
-      type: "png"
-    })
-    await browser.close()
-    res.contentType("image/png")
-    res.set("Content-Disposition", "inline;");
-    res.send(data)
-  } catch (err) {
-    res.status(500).send(`Something went wrong: ${err}`)
-  }
+    });
+    const page = await browser.newPage();
+	
+	let urllist =["https://ad-a01.herokuapp.com/",
+				  "https://ad-b01.herokuapp.com/",
+				  "https://ad-c01.herokuapp.com/",
+				  "https://ad-d01.herokuapp.com/",
+				  "https://ad-e01.herokuapp.com/",
+				  "https://ad-a02.herokuapp.com/",
+				  "https://ad-b02.herokuapp.com/",
+				  "https://ad-c02.herokuapp.com/",
+				  "https://ad-d02.herokuapp.com/",
+				  "https://ad-e02.herokuapp.com/",
+				  "https://ad-a03.herokuapp.com/",
+				  "https://ad-b03.herokuapp.com/",
+				  "https://ad-c03.herokuapp.com/",
+				  "https://ad-d03.herokuapp.com/",
+				  "https://ad-e03.herokuapp.com/",
+				  "https://ad-a04.herokuapp.com/",
+				  "https://ad-b04.herokuapp.com/",
+				  "https://ad-c04.herokuapp.com/",
+				  "https://ad-d04.herokuapp.com/",
+				  "https://ad-e04.herokuapp.com/"];
+				  
+	let nextUrl = "https://wakeup02.herokuapp.com/";
+	
+	let count = 0;
+	while(count < urllist.length){
+		try {
+			await page.goto(urllist[count], {
+				timeout: 60 * 1000,
+				waitUntil
+			});
+			await page.waitForTimeout(30000);
+			console.log('Success！');
+		} catch (err) {
+			console.log('Error！');
+		}	
+		count++;
+	}
+    try{
+		await page.goto(nextUrl);
+	} catch (err) {
+		console.log('Error！');
+	}		
+    await browser.close();
+	
 });
 
 app.listen(port, () => {
