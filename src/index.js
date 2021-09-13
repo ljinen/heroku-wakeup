@@ -25,28 +25,23 @@ app.get("/browser/:name", async (req, res) => {
     });
     const page = await browser.newPage();
 	
-	let urllist =["https://ad-f04.herokuapp.com/",
-				  "https://ad-g04.herokuapp.com/",
-				  "https://ad-h04.herokuapp.com/",
-				  "https://ad-i04.herokuapp.com/",
-				  "https://ad-j04.herokuapp.com/",
-				  "https://ad-f05.herokuapp.com/",
-				  "https://ad-g05.herokuapp.com/",
-				  "https://ad-h05.herokuapp.com/",
-				  "https://ad-i05.herokuapp.com/",
-				  "https://ad-j05.herokuapp.com/",
-				  "https://ad-k01.herokuapp.com/",
-				  "https://ad-l01.herokuapp.com/",
-				  "https://ad-m01.herokuapp.com/",
-				  "https://ad-n01.herokuapp.com/",
-				  "https://ad-o01.herokuapp.com/",
-				  "https://ad-k02.herokuapp.com/",
-				  "https://ad-l02.herokuapp.com/",
-				  "https://ad-m02.herokuapp.com/",
-				  "https://ad-n02.herokuapp.com/",
-				  "https://ad-o02.herokuapp.com/"];
+	let urllist =["https://ad-k03.herokuapp.com/",
+				  "https://ad-l03.herokuapp.com/",
+				  "https://ad-m03.herokuapp.com/",
+				  "https://ad-n03.herokuapp.com/",
+				  "https://ad-o03.herokuapp.com/",
+				  "https://ad-k04.herokuapp.com/",
+				  "https://ad-l04.herokuapp.com/",
+				  "https://ad-m04.herokuapp.com/",
+				  "https://ad-n04.herokuapp.com/",
+				  "https://ad-o04.herokuapp.com/",
+				  "https://ad-k05.herokuapp.com/",
+				  "https://ad-l05.herokuapp.com/",
+				  "https://ad-m05.herokuapp.com/",
+				  "https://ad-n05.herokuapp.com/",
+				  "https://ad-o05.herokuapp.com/"];
 				  
-	let nextUrl = "https://wakeup04.herokuapp.com/";
+	let nextUrl = "https://wakeup01.herokuapp.com/";
 	
 	let count = 0;
 	while(count < urllist.length){
@@ -55,7 +50,7 @@ app.get("/browser/:name", async (req, res) => {
 				timeout: 60 * 1000,
 				waitUntil
 			});
-			await page.waitForTimeout(30000);
+			await page.waitForTimeout(50000);
 			console.log('Success！');
 		} catch (err) {
 			console.log('Error！');
