@@ -53,11 +53,7 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="notification">
-            <img id="image-screenshot" alt="Rendered screenshot"
-                src="/browser/chromium?url=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fplaywright" />
-        </div>
+        </div> 
         <div class="notification">
             To use this buildpack, simply set it in your Heroku configuration before your Node.js buildpack.
             <p>
@@ -77,21 +73,6 @@
             </p>
         </div>
     </footer>
-    <script>
-        (() => {
-            const runBtn = document.querySelector("#btn-run")
-            runBtn.addEventListener("click", () => {
-                const browserSelect = document.querySelector("#select-browser")
-                const screenshotUrl = document.querySelector("#input-url")
-                const searchParams = new URLSearchParams()
-                searchParams.set("url", screenshotUrl.value)
-
-                const screenshotElement = document.querySelector("#image-screenshot")
-                screenshotElement.src = `/browser/${browserSelect.value}?${searchParams.toString()}`
-            })
-        })()
-    </script>
-
 </body>
 
 </html>
