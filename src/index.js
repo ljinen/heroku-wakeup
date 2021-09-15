@@ -24,46 +24,9 @@ app.get("/browser/:name", async (req, res) => {
       chromiumSandbox: false
     });
     const page = await browser.newPage();
-	
-	let urllist =["https://ad-k03.herokuapp.com/browser/test",
-				  "https://ad-l03.herokuapp.com/browser/test",
-				  "https://ad-m03.herokuapp.com/browser/test",
-				  "https://ad-n03.herokuapp.com/browser/test",
-				  "https://ad-o03.herokuapp.com/browser/test",
-				  "https://ad-k04.herokuapp.com/browser/test",
-				  "https://ad-l04.herokuapp.com/browser/test",
-				  "https://ad-m04.herokuapp.com/browser/test",
-				  "https://ad-n04.herokuapp.com/browser/test",
-				  "https://ad-o04.herokuapp.com/browser/test",
-				  "https://ad-k05.herokuapp.com/browser/test",
-				  "https://ad-l05.herokuapp.com/browser/test",
-				  "https://ad-m05.herokuapp.com/browser/test",
-				  "https://ad-n05.herokuapp.com/browser/test",
-				  "https://ad-o05.herokuapp.com/browser/test"];
-				  
-	let nextUrl = "https://wakeup01.herokuapp.com/browser/test";
-	
-	let count = 0;
-	while(count < urllist.length){
-		try {
-			await page.goto(urllist[count], {
-				timeout: 60 * 1000,
-				waitUntil
-			});
-			await page.waitForTimeout(50000);
-			console.log('Success！');
-		} catch (err) {
-			console.log('Error！');
-		}
-		count++;
-	}
-    try{
-		await page.goto(nextUrl);
-		console.log('wakeup01！');
-	} catch (err) {
-		console.log('Error！');
-	}
-    console.log('Finish！');	
+    await page.goto('https://www.ipify.org/');
+    let IP = await page.innerText('body > section.about-slide > div.content-in-blocks > div > div.pre-wrapper.self-ipv4-block > pre > code > span:nth-child(5)');
+    console.log(IP);
     await browser.close();
 	
 });
